@@ -60,6 +60,43 @@ nlopt_dep = dependency('nlopt-wrap', fallback: ['nlopt-wrap', 'nlopt_dep'])
 and add it as dependency to your targets.
 
 
+### Building with CMake
+
+Alternatively, this project can be build with CMake (in this case ninja 1.10 or newer is required):
+
+```
+cmake -B _build -G Ninja
+```
+
+To compile the project with CMake run
+
+```
+cmake --build _build
+```
+
+You can run the project testsuite with
+
+```
+pushd _build && ctest && popd
+```
+
+Finally, install the project using (the install prefix can be customized with in ``-DCMAKE_INSTALL_PREFIX=/path/to/install`` in the first step)
+
+```
+cmake --install _build
+```
+
+Now you can use it in your CMake project by finding it again
+
+```cmake
+if(NOT "nlopt-wrap::nlopt-wrap")
+  find_package("nlopt-wrap" REQUIRED)
+endif()
+# ...
+target_link_libraries("${PROJECT_NAME}-lib" PRIVATE "nlopt-wrap::nlopt::wrap")
+```
+
+
 ### Building with fpm
 
 Invoke fpm in the project root with

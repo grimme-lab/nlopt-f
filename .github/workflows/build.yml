@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        build: [meson]
+        build: [meson, cmake]
         build-type: [debug]
         compiler: [gnu]
         version: [10]
