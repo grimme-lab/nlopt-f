@@ -1,0 +1,3 @@
+#ifndef NLOPT_VERSION
+#define NLOPT_VERSION 20500
+#endif
