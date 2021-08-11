@@ -100,10 +100,10 @@ function myfunc(x, gradient, func_data) result(f)
   real(wp) :: f
 
   if (present(gradient)) then
-    gradient(1) = 0.0
-    gradient(2) = 0.5 / dsqrt(x(2))
+    gradient(1) = 0.0_wp
+    gradient(2) = 0.5_wp / sqrt(x(2))
   endif
-  f = dsqrt(x(2))
+  f = sqrt(x(2))
 end function myfunc
 
 function myconstraint(x, gradient, func_data) result(f)
@@ -116,8 +116,8 @@ function myconstraint(x, gradient, func_data) result(f)
   type is(constraint_data)
     associate(a => func_data%d(1), b => func_data%d(2))
       if (present(gradient)) then
-        gradient(1) = 3. * a * (a*x(1) + b)**2
-        gradient(2) = -1.0
+        gradient(1) = 3.0_wp * a * (a*x(1) + b)**2
+        gradient(2) = -1.0_wp
       endif
       f = (a*x(1) + b)**3 - x(2)
     end associate
