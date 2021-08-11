@@ -1,7 +1,7 @@
 # Fortran bindings for the NLopt library
 
 [![License](https://img.shields.io/badge/license-MIT%7CApache%202.0-blue)](LICENSE-Apache)
-[![CI](https://github.com/awvwgk/nlopt-wrap/actions/workflows/build.yml/badge.svg)](https://github.com/awvwgk/nlopt-wrap/actions/workflows/build.yml)
+[![CI](https://github.com/grimme-lab/nlopt-f/actions/workflows/build.yml/badge.svg)](https://github.com/grimme-lab/nlopt-f/actions/workflows/build.yml)
 
 Fortran bindings for the NLopt library.
 While the NLopt library supports Fortran by using implicit interface calling conventions, those are not type-safe.
@@ -42,19 +42,19 @@ You can run the projects testsuite with
 meson test -C _build --print-errorlogs
 ```
 
-To include ``nlopt-wrap`` in your project add the following wrap file to your subprojects directory:
+To include ``nlopt-f`` in your project add the following wrap file to your subprojects directory:
 
 ```ini
 [wrap-git]
-directory = nlopt-wrap
-url = https://github.com/awvwgk/nlopt-wrap
+directory = nlopt-f
+url = https://github.com/grimme-lab/nlopt-f
 revision = head
 ```
 
 You can retrieve the dependency from the wrap fallback with
 
 ```meson
-nlopt_dep = dependency('nlopt-wrap', fallback: ['nlopt-wrap', 'nlopt_dep'])
+nlopt_dep = dependency('nlopt-f', fallback: ['nlopt-f', 'nlopt_dep'])
 ```
 
 and add it as dependency to your targets.
@@ -89,11 +89,11 @@ cmake --install _build
 Now you can use it in your CMake project by finding it again
 
 ```cmake
-if(NOT "nlopt-wrap::nlopt-wrap")
-  find_package("nlopt-wrap" REQUIRED)
+if(NOT "nlopt-f::nlopt-f")
+  find_package("nlopt-f" REQUIRED)
 endif()
 # ...
-target_link_libraries("${PROJECT_NAME}-lib" PRIVATE "nlopt-wrap::nlopt::wrap")
+target_link_libraries("${PROJECT_NAME}-lib" PRIVATE "nlopt-f::nlopt::wrap")
 ```
 
 
@@ -111,11 +111,11 @@ To run the testsuite use
 fpm test
 ```
 
-To use ``nlopt-wrap`` include it as dependency in your package manifest
+To use ``nlopt-f`` include it as dependency in your package manifest
 
 ```toml
 [dependencies]
-nlopt-wrap.git = "https://github.com/awvwgk/nlopt-wrap"
+nlopt-f.git = "https://github.com/grimme-lab/nlopt-f"
 ```
 
 
