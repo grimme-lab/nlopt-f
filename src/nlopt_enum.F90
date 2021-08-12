@@ -136,7 +136,9 @@ module nlopt_enum
       character(1, c_char), intent(in) :: name(*)
       integer(nlopt_algorithm) :: algorithm
     end function nlopt_algorithm_from_string
+#endif
 
+#if NLOPT_VERSION >= 20701
     ! extern const char *
     ! nlopt_result_to_string(nlopt_result stat);
     pure function nlopt_result_to_string(stat) result(name) bind(c)
@@ -179,7 +181,7 @@ contains
     integer(nlopt_result), intent(in) :: stat
     character(len=:, kind=c_char), allocatable :: name
 
-#if NLOPT_VERSION >= 20602
+#if NLOPT_VERSION >= 20701
     name = arr_to_str(from_c_char(nlopt_result_to_string(stat)))
 #else
     select case(stat)
@@ -202,7 +204,7 @@ contains
     character(len=*), intent(in) :: name
     integer(nlopt_result) :: stat
 
-#if NLOPT_VERSION >= 20602
+#if NLOPT_VERSION >= 20701
     stat = nlopt_result_from_string(as_c_char(name))
 #else
     select case(name)

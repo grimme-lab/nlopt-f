@@ -15,10 +15,13 @@ To build this project from the source code in this repository you need to have
 - a Fortran compiler supporting Fortran 2008 (GCC 5 or newer or Intel Fortran)
 - One of the supported build systems
 
-  - [meson](https://mesonbuild.com) version 0.55 or newer
+  - [meson](https://mesonbuild.com) version 0.55 or newer, with
+    a build-system backend, *i.e.* [ninja](https://ninja-build.org) version 1.7 or newer
+  - [cmake](https://cmake.org) version 3.14 or newer, with
+    a build-system backend, *i.e.* [ninja](https://ninja-build.org) version 1.10 or newer
   - [Fortran package manager (fpm)](https://github.com/fortran-lang/fpm) version 0.2.0 or newer
 
-- [nlopt](https://nlopt.readthedocs.io/en/latest/) version 2.5.0 or later
+- [nlopt](https://nlopt.readthedocs.io/en/latest/) version 2.0.0 or later
 
 
 ### Building with meson
@@ -117,6 +120,28 @@ To use ``nlopt-f`` include it as dependency in your package manifest
 [dependencies]
 nlopt-f.git = "https://github.com/grimme-lab/nlopt-f"
 ```
+
+The Fortran bindings target NLopt 2.5.0 by default.
+You can target a specific NLopt version by adding the preprocessor define ``NLOPT_VERSION`` using a compact integer representation (major * 10000 + minor * 100 + patch).
+To target NLopt 2.6.2 use
+
+```
+fpm <cmd> --profile debug --flag "-DNLOPT_VERSION=20602"
+```
+
+If NLopt is not installed in a standard location use pkg-config to find it
+
+```
+fpm <cmd> --profile debug --flag "$(pkg-config nlopt --cflags --libs-only-L)"
+```
+
+You can check your installed NLopt version using
+
+```
+pkg-config nlopt --modversion
+```
+
+Which will print the version number.
 
 
 ## Usage

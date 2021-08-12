@@ -126,6 +126,7 @@ module nlopt_interface
       integer(nlopt_result) :: stat
     end function nlopt_set_max_objective
 
+#if NLOPT_VERSION >= 20300
     ! extern nlopt_result
     ! nlopt_set_precond_min_objective(nlopt_opt opt, nlopt_func f, nlopt_precond pre, void *f_data);
     function nlopt_set_precond_min_objective(opt, f, pre, f_data) result(stat) bind(c)
@@ -148,6 +149,7 @@ module nlopt_interface
       type(c_ptr), value :: f_data
       integer(nlopt_result) :: stat
     end function nlopt_set_precond_max_objective
+#endif
 
     ! extern nlopt_algorithm
     ! nlopt_get_algorithm(const nlopt_opt opt);
@@ -166,6 +168,7 @@ module nlopt_interface
       integer(c_int) :: n
     end function nlopt_get_dimension
 
+#if NLOPT_VERSION >= 20500
     ! extern const char *
     ! nlopt_get_errmsg(nlopt_opt opt);
     function nlopt_get_errmsg(opt) result(errmsg) bind(c)
@@ -174,6 +177,7 @@ module nlopt_interface
       type(c_ptr), value :: opt
       type(c_ptr) :: errmsg
     end function nlopt_get_errmsg
+#endif
 
 #if NLOPT_VERSION >= 20700
     ! /* generic algorithm parameters: */
@@ -323,6 +327,7 @@ module nlopt_interface
       real(c_double), value :: tol
       integer(nlopt_result) :: stat
     end function nlopt_add_inequality_constraint
+#if NLOPT_VERSION >= 20300
     ! extern nlopt_result
     ! nlopt_add_precond_inequality_constraint(nlopt_opt opt, nlopt_func fc, nlopt_precond pre, void *fc_data, double tol);
     function nlopt_add_precond_inequality_constraint(opt, fc, pre, fc_data, tol) &
@@ -336,6 +341,8 @@ module nlopt_interface
       real(c_double), value :: tol
       integer(nlopt_result) :: stat
     end function nlopt_add_precond_inequality_constraint
+#endif
+#if NLOPT_VERSION >= 20100
     ! extern nlopt_result
     ! nlopt_add_inequality_mconstraint(nlopt_opt opt, unsigned m, nlopt_mfunc fc, void *fc_data, const double *tol);
     function nlopt_add_inequality_mconstraint(opt, m, fc, fc_data, tol) &
@@ -349,6 +356,7 @@ module nlopt_interface
       real(c_double), intent(in) :: tol(*)
       integer(nlopt_result) :: stat
     end function nlopt_add_inequality_mconstraint
+#endif
 
     ! extern nlopt_result
     ! nlopt_remove_equality_constraints(nlopt_opt opt);
@@ -369,6 +377,7 @@ module nlopt_interface
       real(c_double), value :: tol
       integer(nlopt_result) :: stat
     end function nlopt_add_equality_constraint
+#if NLOPT_VERSION >= 20300
     ! extern nlopt_result
     ! nlopt_add_precond_equality_constraint(nlopt_opt opt, nlopt_func h, nlopt_precond pre, void *h_data, double tol);
     function nlopt_add_precond_equality_constraint(opt, h, pre, h_data, tol) &
@@ -382,6 +391,8 @@ module nlopt_interface
       real(c_double), value :: tol
       integer(nlopt_result) :: stat
     end function nlopt_add_precond_equality_constraint
+#endif
+#if NLOPT_VERSION > 20100
     ! extern nlopt_result
     ! nlopt_add_equality_mconstraint(nlopt_opt opt, unsigned m, nlopt_mfunc h, void *h_data, const double *tol);
     function nlopt_add_equality_mconstraint(opt, m, h, h_data, tol) result(stat) bind(c)
@@ -394,6 +405,7 @@ module nlopt_interface
       real(c_double), intent(in) :: tol(*)
       integer(nlopt_result) :: stat
     end function nlopt_add_equality_mconstraint
+#endif
 
     ! /* stopping criteria: */
 
@@ -541,6 +553,7 @@ module nlopt_interface
       integer(c_int) :: maxeval
     end function nlopt_get_maxeval
 
+#if NLOPT_VERSION >= 20500
     ! extern int
     ! nlopt_get_numevals(const nlopt_opt opt);
     function nlopt_get_numevals(opt) result(numevals) bind(c)
@@ -549,6 +562,7 @@ module nlopt_interface
       type(c_ptr), value :: opt
       integer(c_int) :: numevals
     end function nlopt_get_numevals
+#endif
 
     ! extern nlopt_result
     ! nlopt_set_maxtime(nlopt_opt opt, double maxtime);
@@ -624,6 +638,7 @@ module nlopt_interface
       integer(c_int) :: pop
     end function nlopt_get_population
 
+#if NLOPT_VERSION >= 20202
     ! extern nlopt_result
     ! nlopt_set_vector_storage(nlopt_opt opt, unsigned dim);
     function nlopt_set_vector_storage(opt, dim) result(stat) bind(c)
@@ -641,6 +656,7 @@ module nlopt_interface
       type(c_ptr), value :: opt
       integer(c_int) :: dim
     end function nlopt_get_vector_storage
+#endif
 
     ! extern nlopt_result
     ! nlopt_set_default_initial_step(nlopt_opt opt, const double *x);
@@ -775,6 +791,122 @@ contains
     integer(nlopt_result) :: stat
     stat = NLOPT_FAILURE
   end function nlopt_set_upper_bound
+#endif
+
+
+#if NLOPT_VERSION < 20500
+  ! extern const char *
+  ! nlopt_get_errmsg(nlopt_opt opt);
+  function nlopt_get_errmsg(opt) result(errmsg)
+    type(c_ptr), value :: opt
+    type(c_ptr) :: errmsg
+    errmsg = c_null_ptr
+  end function nlopt_get_errmsg
+#endif
+
+#if NLOPT_VERSION < 20500
+  ! extern int
+  ! nlopt_get_numevals(const nlopt_opt opt);
+  function nlopt_get_numevals(opt) result(numevals)
+    type(c_ptr), value :: opt
+    integer(c_int) :: numevals
+    numevals = -1_c_int
+  end function nlopt_get_numevals
+#endif
+
+#if NLOPT_VERSION < 20300
+  ! extern nlopt_result
+  ! nlopt_set_precond_min_objective(nlopt_opt opt, nlopt_func f, nlopt_precond pre, void *f_data);
+  function nlopt_set_precond_min_objective(opt, f, pre, f_data) result(stat)
+    type(c_ptr), value :: opt
+    type(c_ptr), value :: f
+    type(c_ptr), value :: pre
+    type(c_ptr), value :: f_data
+    integer(nlopt_result) :: stat
+    stat = NLOPT_FAILURE
+  end function nlopt_set_precond_min_objective
+
+  ! extern nlopt_result
+  ! nlopt_set_precond_max_objective(nlopt_opt opt, nlopt_func f, nlopt_precond pre, void *f_data);
+  function nlopt_set_precond_max_objective(opt, f, pre, f_data) result(stat)
+    type(c_ptr), value :: opt
+    type(c_funptr), value :: f
+    type(c_funptr), value :: pre
+    type(c_ptr), value :: f_data
+    integer(nlopt_result) :: stat
+    stat = NLOPT_FAILURE
+  end function nlopt_set_precond_max_objective
+
+  ! extern nlopt_result
+  ! nlopt_add_precond_inequality_constraint(nlopt_opt opt, nlopt_func fc, nlopt_precond pre, void *fc_data, double tol);
+  function nlopt_add_precond_inequality_constraint(opt, fc, pre, fc_data, tol) &
+      & result(stat)
+    type(c_ptr), value :: opt
+    type(c_funptr), value :: fc
+    type(c_funptr), value :: pre
+    type(c_ptr), value :: fc_data
+    real(c_double), value :: tol
+    integer(nlopt_result) :: stat
+    stat = NLOPT_FAILURE
+  end function nlopt_add_precond_inequality_constraint
+
+  ! extern nlopt_result
+  ! nlopt_add_precond_equality_constraint(nlopt_opt opt, nlopt_func h, nlopt_precond pre, void *h_data, double tol);
+  function nlopt_add_precond_equality_constraint(opt, h, pre, h_data, tol) &
+      & result(stat)
+    type(c_ptr), value :: opt
+    type(c_funptr), value :: h
+    type(c_funptr), value :: pre
+    type(c_ptr), value :: h_data
+    real(c_double), value :: tol
+    integer(nlopt_result) :: stat
+    stat = NLOPT_FAILURE
+  end function nlopt_add_precond_equality_constraint
+#endif
+
+#if NLOPT_VERSION < 20202
+  ! extern nlopt_result
+  ! nlopt_set_vector_storage(nlopt_opt opt, unsigned dim);
+  function nlopt_set_vector_storage(opt, dim) result(stat) bind(c)
+    type(c_ptr), value :: opt
+    integer(c_int), value :: dim
+    integer(nlopt_result) :: stat
+    stat = NLOPT_FAILURE
+  end function nlopt_set_vector_storage
+  ! extern unsigned
+  ! nlopt_get_vector_storage(const nlopt_opt opt);
+  function nlopt_get_vector_storage(opt) result(dim) bind(c)
+    type(c_ptr), value :: opt
+    integer(c_int) :: dim
+    dim = 0_c_int
+  end function nlopt_get_vector_storage
+#endif
+
+#if NLOPT_VERSION < 20100
+  ! extern nlopt_result
+  ! nlopt_add_inequality_mconstraint(nlopt_opt opt, unsigned m, nlopt_mfunc fc, void *fc_data, const double *tol);
+  function nlopt_add_inequality_mconstraint(opt, m, fc, fc_data, tol) &
+      & result(stat)
+    type(c_ptr), value :: opt
+    integer(c_int), value :: m
+    type(c_funptr), value :: fc
+    type(c_ptr), value :: fc_data
+    real(c_double), intent(in) :: tol(*)
+    integer(nlopt_result) :: stat
+    stat = NLOPT_FAILURE
+  end function nlopt_add_inequality_mconstraint
+
+  ! extern nlopt_result
+  ! nlopt_add_equality_mconstraint(nlopt_opt opt, unsigned m, nlopt_mfunc h, void *h_data, const double *tol);
+  function nlopt_add_equality_mconstraint(opt, m, h, h_data, tol) result(stat)
+    type(c_ptr), value :: opt
+    integer(c_int), value :: m
+    type(c_funptr), value :: h
+    type(c_ptr), value :: h_data
+    real(c_double), intent(in) :: tol(*)
+    integer(nlopt_result) :: stat
+    stat = NLOPT_FAILURE
+  end function nlopt_add_equality_mconstraint
 #endif
 
 end module nlopt_interface

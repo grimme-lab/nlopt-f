@@ -36,3 +36,17 @@ elif fc_id == 'pgi' or fc_id == 'nvidia_hpc'
 endif
 
 lib_deps += dependency('nlopt', version: '>=2.0')
+if get_option('nlopt_version') == 'auto'
+  nlopt_varr = lib_deps.get(-1).version().split('.')
+else
+  if get_option('nlopt_version').version_compare('>='+lib_deps.get(-1).version())
+    error('Requested NLopt version is newer than available NLopt library')
+  endif
+  nlopt_varr = get_option('nlopt_version').split('.')
+endif
+nlopt_version = nlopt_varr.get(0, '0').to_int() * 10000 \
+    + nlopt_varr.get(1, '0').to_int() * 100 \
+    + nlopt_varr.get(2, '0').to_int()
+lib_deps += declare_dependency(
+  compile_args: '-DNLOPT_VERSION='+nlopt_version.to_string()
+)
