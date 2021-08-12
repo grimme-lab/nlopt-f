@@ -867,7 +867,7 @@ contains
 #if NLOPT_VERSION < 20202
   ! extern nlopt_result
   ! nlopt_set_vector_storage(nlopt_opt opt, unsigned dim);
-  function nlopt_set_vector_storage(opt, dim) result(stat) bind(c)
+  function nlopt_set_vector_storage(opt, dim) result(stat)
     type(c_ptr), value :: opt
     integer(c_int), value :: dim
     integer(nlopt_result) :: stat
@@ -875,7 +875,7 @@ contains
   end function nlopt_set_vector_storage
   ! extern unsigned
   ! nlopt_get_vector_storage(const nlopt_opt opt);
-  function nlopt_get_vector_storage(opt) result(dim) bind(c)
+  function nlopt_get_vector_storage(opt) result(dim)
     type(c_ptr), value :: opt
     integer(c_int) :: dim
     dim = 0_c_int
