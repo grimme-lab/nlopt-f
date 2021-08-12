@@ -111,7 +111,7 @@ module nlopt_enum
   interface
     ! extern const char *
     ! nlopt_algorithm_name(nlopt_algorithm algorithm);
-    pure function nlopt_algorithm_name(algorithm) result(name) bind(c)
+    function nlopt_algorithm_name(algorithm) result(name) bind(c)
       import :: nlopt_algorithm, c_ptr
       implicit none
       integer(nlopt_algorithm), value :: algorithm
@@ -121,7 +121,7 @@ module nlopt_enum
 #if NLOPT_VERSION >= 20602
     ! extern const char *
     ! nlopt_algorithm_to_string(nlopt_algorithm algorithm);
-    pure function nlopt_algorithm_to_string(algorithm) result(name) bind(c)
+    function nlopt_algorithm_to_string(algorithm) result(name) bind(c)
       import :: nlopt_algorithm, c_ptr
       implicit none
       integer(nlopt_algorithm), value :: algorithm
@@ -130,7 +130,7 @@ module nlopt_enum
 
     ! extern nlopt_algorithm
     ! nlopt_algorithm_from_string(const char *name);
-    pure function nlopt_algorithm_from_string(name) result(algorithm) bind(c)
+    function nlopt_algorithm_from_string(name) result(algorithm) bind(c)
       import :: nlopt_algorithm, c_char
       implicit none
       character(1, c_char), intent(in) :: name(*)
@@ -141,7 +141,7 @@ module nlopt_enum
 #if NLOPT_VERSION >= 20701
     ! extern const char *
     ! nlopt_result_to_string(nlopt_result stat);
-    pure function nlopt_result_to_string(stat) result(name) bind(c)
+    function nlopt_result_to_string(stat) result(name) bind(c)
       import :: nlopt_result, c_ptr
       implicit none
       integer(nlopt_result), value :: stat
@@ -150,7 +150,7 @@ module nlopt_enum
 
     ! extern nlopt_result
     ! nlopt_result_from_string(const char *name);
-    pure function nlopt_result_from_string(name) result(stat) bind(c)
+    function nlopt_result_from_string(name) result(stat) bind(c)
       import :: nlopt_result, c_char
       implicit none
       character(1, c_char), intent(in) :: name(*)
@@ -160,7 +160,7 @@ module nlopt_enum
   end interface
 
   interface
-    pure function strlen(str) result(len) bind(c)
+    function strlen(str) result(len) bind(c)
       import :: c_ptr, c_int
       type(c_ptr), value :: str
       integer(c_int) :: len

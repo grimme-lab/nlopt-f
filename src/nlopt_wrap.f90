@@ -212,7 +212,7 @@ module nlopt_wrap
   end interface nlopt_opt
 
   interface
-    pure function strlen(str) result(len) bind(c)
+    function strlen(str) result(len) bind(c)
       import :: c_ptr, c_int
       type(c_ptr), value :: str
       integer(c_int) :: len
