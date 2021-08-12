@@ -29,6 +29,13 @@ add_subdirectory("config")
 if(NOT TARGET "NLopt::nlopt")
   find_package("NLopt")
 endif()
+# Encode version of NLopt library as integer to allow usage in preprocessor guards
+math(
+  EXPR "NLOPT_CVERSION"
+  "${NLopt_VERSION_MAJOR} * 10000
+  +${NLopt_VERSION_MINOR} * 100
+  +${NLopt_VERSION_PATCH}"
+)
 
 set(
   lib-deps
@@ -52,6 +59,11 @@ set_target_properties(
   VERSION "${PROJECT_VERSION}"
   SOVERSION "${PROJECT_VERSION_MAJOR}"
   Fortran_MODULE_DIRECTORY "${PROJECT_BINARY_DIR}/include"
+)
+target_compile_definitions(
+  "${PROJECT_NAME}-lib"
+  PRIVATE
+  "NLOPT_VERSION=${NLOPT_CVERSION}"
 )
 target_link_libraries(
   "${PROJECT_NAME}-lib"
