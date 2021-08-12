@@ -130,11 +130,11 @@ module nlopt_interface
     ! extern nlopt_result
     ! nlopt_set_precond_min_objective(nlopt_opt opt, nlopt_func f, nlopt_precond pre, void *f_data);
     function nlopt_set_precond_min_objective(opt, f, pre, f_data) result(stat) bind(c)
-      import :: c_ptr, nlopt_result
+      import :: c_ptr, c_funptr, nlopt_result
       implicit none
       type(c_ptr), value :: opt
-      type(c_ptr), value :: f
-      type(c_ptr), value :: pre
+      type(c_funptr), value :: f
+      type(c_funptr), value :: pre
       type(c_ptr), value :: f_data
       integer(nlopt_result) :: stat
     end function nlopt_set_precond_min_objective
@@ -819,8 +819,8 @@ contains
   ! nlopt_set_precond_min_objective(nlopt_opt opt, nlopt_func f, nlopt_precond pre, void *f_data);
   function nlopt_set_precond_min_objective(opt, f, pre, f_data) result(stat)
     type(c_ptr), value :: opt
-    type(c_ptr), value :: f
-    type(c_ptr), value :: pre
+    type(c_funptr), value :: f
+    type(c_funptr), value :: pre
     type(c_ptr), value :: f_data
     integer(nlopt_result) :: stat
     stat = NLOPT_FAILURE
