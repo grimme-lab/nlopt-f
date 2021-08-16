@@ -96,7 +96,7 @@ if(NOT "nlopt-f::nlopt-f")
   find_package("nlopt-f" REQUIRED)
 endif()
 # ...
-target_link_libraries("${PROJECT_NAME}-lib" PRIVATE "nlopt-f::nlopt::wrap")
+target_link_libraries("${PROJECT_NAME}-lib" PRIVATE "nlopt-f::nlopt-f")
 ```
 
 

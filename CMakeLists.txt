@@ -27,7 +27,7 @@ include(GNUInstallDirs)
 add_subdirectory("config")
 
 if(NOT TARGET "NLopt::nlopt")
-  find_package("NLopt")
+  find_package("NLopt" REQUIRED)
 endif()
 # Encode version of NLopt library as integer to allow usage in preprocessor guards
 math(
