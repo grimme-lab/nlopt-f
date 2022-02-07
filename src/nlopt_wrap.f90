@@ -549,7 +549,7 @@ contains
 
   subroutine add_equality_constraint(self, h, tol, stat)
     class(nlopt_opt), intent(inout) :: self
-    type(nlopt_mfunc), intent(in), target :: h
+    type(nlopt_func), intent(in), target :: h
     real(wp), intent(in) :: tol
     integer(ik), intent(out), optional :: stat
 
