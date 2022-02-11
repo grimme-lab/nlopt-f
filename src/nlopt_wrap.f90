@@ -890,7 +890,7 @@ contains
   end subroutine set_initial_step1
 
   subroutine get_initial_step(self, x, dx, stat)
-    class(nlopt_opt), intent(inout) :: self
+    class(nlopt_opt), intent(in) :: self
     real(c_double), intent(in) :: x(*)
     real(c_double), intent(in) :: dx(*)
     integer(ik), intent(out), optional :: stat
