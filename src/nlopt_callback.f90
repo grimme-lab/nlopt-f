@@ -58,7 +58,7 @@ module nlopt_callback
       implicit none
       real(c_double), intent(inout) :: result(:)
       real(c_double), intent(in) :: x(:)
-      real(c_double), intent(inout), optional :: gradient(:)
+      real(c_double), intent(inout), optional :: gradient(:,:)
       class(*), intent(in), optional :: func_data
     end subroutine
 
@@ -149,7 +149,7 @@ contains
     real(c_double), intent(inout) :: result(m)
     integer(c_int), value :: n
     real(c_double), intent(in) :: x(n)
-    real(c_double), intent(inout), optional :: gradient(n)
+    real(c_double), intent(inout), optional :: gradient(n, m)
     type(c_ptr), value :: func_data
 
     type(nlopt_mfunc), pointer :: mfunc
