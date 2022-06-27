@@ -16,7 +16,7 @@
 
 set(_lib "test-drive")
 set(_pkg "TEST_DRIVE")
-set(_url "https://github.com/awvwgk/test-drive")
+set(_url "https://github.com/fortran-lang/test-drive")
 
 if(NOT DEFINED "${_pkg}_FIND_METHOD")
   if(DEFINED "${PROJECT_NAME}-dependency-method")

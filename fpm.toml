@@ -11,4 +11,4 @@ copyright = "Copyright 2021 S. Ehlert"
 link = "nlopt"
 
 [dev-dependencies]
-test-drive.git = "https://github.com/awvwgk/test-drive"
+test-drive.git = "https://github.com/fortran-lang/test-drive"
