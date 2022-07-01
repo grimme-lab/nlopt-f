@@ -1,11 +1,11 @@
 name = "nlopt-f"
-version = "0.1.0"
+version = "0.2.0"
 license = "MIT"
-maintainer = ["@awvwgk"]
+maintainer = ["@awvwgk", "@ivan-pi"]
 author = ["Sebastian Ehlert"]
 description = "Interface to NLopt library"
 keywords = ["nlopt"]
-copyright = "Copyright 2021 S. Ehlert"
+copyright = "Copyright 2021-2022 S. Ehlert, I. Pribec"
 
 [build]
 link = "nlopt"

@@ -16,7 +16,7 @@ cmake_minimum_required(VERSION 3.14)
 project(
   "nlopt-f"
   LANGUAGES "Fortran" "C"
-  VERSION "0.1.0"
+  VERSION "0.2.0"
   DESCRIPTION "Fortran bindings for NLopt"
 )
 
@@ -83,7 +83,7 @@ target_include_directories(
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${module-dir}>
 )
 if(NOT EXISTS "${PROJECT_BINARY_DIR}/include")
-  make_directory("${PROJECT_BINARY_DIR}/include")
+  file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include")
 endif()
 
 # Export targets for other projects
